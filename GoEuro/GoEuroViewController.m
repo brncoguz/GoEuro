@@ -130,6 +130,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.sortString = @"departure_time";
     [self fetchTheData];
     [self loadTheData];
 }
@@ -162,9 +163,9 @@
         }];
     }]];
     
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"By Arrivel Time" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"By Arrival Time" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        self.sortString = @"By Arrivel Time";
+        self.sortString = @"By Arrival Time";
         self.objectHolderArray = nil;
         [self loadTheData];
         
@@ -232,8 +233,25 @@
 
 - (void)loadTheData
 {
+    NSSortDescriptor *lastDescriptor = nil;
+    
+    if ([self.sortString isEqualToString:@"By Departure Time"])
+        lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"departure_time" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    else if ([self.sortString isEqualToString:@"By Arrival Time"])
+        lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"arrival_time" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    else if ([self.sortString isEqualToString:@"By Price"])
+        lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"price_in_euros.doubleValue" ascending:YES];
+    else if ([self.sortString isEqualToString:@"By Number Of Stop"])
+        lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number_of_stops.longValue" ascending:YES];
+    else
+        lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"departure_time" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *arr = [userDefaults objectForKey:[NSString stringWithFormat:@"%ld", (long)self.segmentControl.selectedSegmentIndex]];
+    NSArray *array = [userDefaults objectForKey:[NSString stringWithFormat:@"%ld", (long)self.segmentControl.selectedSegmentIndex]];
+    
+    NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+    NSArray *arr = [array sortedArrayUsingDescriptors:descriptors];
     
     for (NSDictionary *bpDictionary in arr)
     {
