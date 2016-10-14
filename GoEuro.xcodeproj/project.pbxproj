@@ -1,0 +1,365 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		378F067E1DAD5CA600E3A248 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F067D1DAD5CA600E3A248 /* main.m */; };
+		378F06811DAD5CA600E3A248 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F06801DAD5CA600E3A248 /* AppDelegate.m */; };
+		378F06871DAD5CA600E3A248 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 378F06851DAD5CA600E3A248 /* Main.storyboard */; };
+		378F068A1DAD5CA600E3A248 /* GoEuro.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 378F06881DAD5CA600E3A248 /* GoEuro.xcdatamodeld */; };
+		378F068C1DAD5CA600E3A248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 378F068B1DAD5CA600E3A248 /* Assets.xcassets */; };
+		378F068F1DAD5CA600E3A248 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 378F068D1DAD5CA600E3A248 /* LaunchScreen.storyboard */; };
+		378F06C71DAD653A00E3A248 /* GoEuroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F06C61DAD653A00E3A248 /* GoEuroViewController.m */; };
+		378F06CA1DAD658500E3A248 /* GoEuroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F06C91DAD658500E3A248 /* GoEuroCell.m */; };
+		378F06CD1DAD668700E3A248 /* GoEuroObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F06CC1DAD668700E3A248 /* GoEuroObject.m */; };
+		37A6B9BA1DB00C7500E85A74 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A6B9B91DB00C7500E85A74 /* SystemConfiguration.framework */; };
+		37A6B9BD1DB00DD200E85A74 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A6B9BC1DB00DD200E85A74 /* Reachability.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		378F06791DAD5CA600E3A248 /* GoEuro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoEuro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		378F067D1DAD5CA600E3A248 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		378F067F1DAD5CA600E3A248 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		378F06801DAD5CA600E3A248 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		378F06861DAD5CA600E3A248 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		378F06891DAD5CA600E3A248 /* GoEuro.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoEuro.xcdatamodel; sourceTree = "<group>"; };
+		378F068B1DAD5CA600E3A248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		378F068E1DAD5CA600E3A248 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		378F06901DAD5CA600E3A248 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		378F06C51DAD653A00E3A248 /* GoEuroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoEuroViewController.h; sourceTree = "<group>"; };
+		378F06C61DAD653A00E3A248 /* GoEuroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoEuroViewController.m; sourceTree = "<group>"; };
+		378F06C81DAD658500E3A248 /* GoEuroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoEuroCell.h; sourceTree = "<group>"; };
+		378F06C91DAD658500E3A248 /* GoEuroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoEuroCell.m; sourceTree = "<group>"; };
+		378F06CB1DAD668700E3A248 /* GoEuroObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoEuroObject.h; sourceTree = "<group>"; };
+		378F06CC1DAD668700E3A248 /* GoEuroObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoEuroObject.m; sourceTree = "<group>"; };
+		37A6B9B91DB00C7500E85A74 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		37A6B9BB1DB00DD200E85A74 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		37A6B9BC1DB00DD200E85A74 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		378F06761DAD5CA600E3A248 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37A6B9BA1DB00C7500E85A74 /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		378F06701DAD5CA600E3A248 = {
+			isa = PBXGroup;
+			children = (
+				378F067B1DAD5CA600E3A248 /* GoEuro */,
+				378F067A1DAD5CA600E3A248 /* Products */,
+				37A6B9B81DB00C7400E85A74 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		378F067A1DAD5CA600E3A248 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				378F06791DAD5CA600E3A248 /* GoEuro.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		378F067B1DAD5CA600E3A248 /* GoEuro */ = {
+			isa = PBXGroup;
+			children = (
+				378F06CB1DAD668700E3A248 /* GoEuroObject.h */,
+				378F06CC1DAD668700E3A248 /* GoEuroObject.m */,
+				378F06C81DAD658500E3A248 /* GoEuroCell.h */,
+				378F06C91DAD658500E3A248 /* GoEuroCell.m */,
+				378F06C51DAD653A00E3A248 /* GoEuroViewController.h */,
+				378F06C61DAD653A00E3A248 /* GoEuroViewController.m */,
+				378F06851DAD5CA600E3A248 /* Main.storyboard */,
+				378F067C1DAD5CA600E3A248 /* Supporting Files */,
+			);
+			path = GoEuro;
+			sourceTree = "<group>";
+		};
+		378F067C1DAD5CA600E3A248 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37A6B9BB1DB00DD200E85A74 /* Reachability.h */,
+				37A6B9BC1DB00DD200E85A74 /* Reachability.m */,
+				378F067F1DAD5CA600E3A248 /* AppDelegate.h */,
+				378F06801DAD5CA600E3A248 /* AppDelegate.m */,
+				378F068B1DAD5CA600E3A248 /* Assets.xcassets */,
+				378F068D1DAD5CA600E3A248 /* LaunchScreen.storyboard */,
+				378F06901DAD5CA600E3A248 /* Info.plist */,
+				378F06881DAD5CA600E3A248 /* GoEuro.xcdatamodeld */,
+				378F067D1DAD5CA600E3A248 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37A6B9B81DB00C7400E85A74 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37A6B9B91DB00C7500E85A74 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		378F06781DAD5CA600E3A248 /* GoEuro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 378F06931DAD5CA600E3A248 /* Build configuration list for PBXNativeTarget "GoEuro" */;
+			buildPhases = (
+				378F06751DAD5CA600E3A248 /* Sources */,
+				378F06761DAD5CA600E3A248 /* Frameworks */,
+				378F06771DAD5CA600E3A248 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoEuro;
+			productName = GoEuro;
+			productReference = 378F06791DAD5CA600E3A248 /* GoEuro.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		378F06711DAD5CA600E3A248 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Oguz Birinci";
+				TargetAttributes = {
+					378F06781DAD5CA600E3A248 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = KGKQS757K2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 378F06741DAD5CA600E3A248 /* Build configuration list for PBXProject "GoEuro" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 378F06701DAD5CA600E3A248;
+			productRefGroup = 378F067A1DAD5CA600E3A248 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				378F06781DAD5CA600E3A248 /* GoEuro */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		378F06771DAD5CA600E3A248 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				378F068F1DAD5CA600E3A248 /* LaunchScreen.storyboard in Resources */,
+				378F068C1DAD5CA600E3A248 /* Assets.xcassets in Resources */,
+				378F06871DAD5CA600E3A248 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		378F06751DAD5CA600E3A248 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				378F068A1DAD5CA600E3A248 /* GoEuro.xcdatamodeld in Sources */,
+				378F06C71DAD653A00E3A248 /* GoEuroViewController.m in Sources */,
+				378F06811DAD5CA600E3A248 /* AppDelegate.m in Sources */,
+				37A6B9BD1DB00DD200E85A74 /* Reachability.m in Sources */,
+				378F06CD1DAD668700E3A248 /* GoEuroObject.m in Sources */,
+				378F06CA1DAD658500E3A248 /* GoEuroCell.m in Sources */,
+				378F067E1DAD5CA600E3A248 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		378F06851DAD5CA600E3A248 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				378F06861DAD5CA600E3A248 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		378F068D1DAD5CA600E3A248 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				378F068E1DAD5CA600E3A248 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		378F06911DAD5CA600E3A248 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		378F06921DAD5CA600E3A248 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		378F06941DAD5CA600E3A248 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = KGKQS757K2;
+				INFOPLIST_FILE = GoEuro/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brncoguz.GoEuro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		378F06951DAD5CA600E3A248 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = KGKQS757K2;
+				INFOPLIST_FILE = GoEuro/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brncoguz.GoEuro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		378F06741DAD5CA600E3A248 /* Build configuration list for PBXProject "GoEuro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				378F06911DAD5CA600E3A248 /* Debug */,
+				378F06921DAD5CA600E3A248 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		378F06931DAD5CA600E3A248 /* Build configuration list for PBXNativeTarget "GoEuro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				378F06941DAD5CA600E3A248 /* Debug */,
+				378F06951DAD5CA600E3A248 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		378F06881DAD5CA600E3A248 /* GoEuro.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				378F06891DAD5CA600E3A248 /* GoEuro.xcdatamodel */,
+			);
+			currentVersion = 378F06891DAD5CA600E3A248 /* GoEuro.xcdatamodel */;
+			path = GoEuro.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 378F06711DAD5CA600E3A248 /* Project object */;
+}
