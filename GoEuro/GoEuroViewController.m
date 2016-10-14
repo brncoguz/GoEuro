@@ -133,7 +133,8 @@
     self.sortString = @"departure_time";
     if (self.connected)
         [self fetchTheData];
-    [self loadTheData];
+    else
+        [self loadTheData];
 }
 
 - (IBAction)segmentSwitch
@@ -205,27 +206,45 @@
     dispatch_queue_t fetchQ = dispatch_queue_create("goEuro fetcher", NULL);
     dispatch_async(fetchQ, ^{
         
-        NSURL *blogURLBus = [NSURL URLWithString:JSON_URL_BUS];
-        NSURL *blogURLTrain = [NSURL URLWithString:JSON_URL_TRAIN];
-        NSURL *blogURLFlight = [NSURL URLWithString:JSON_URL_FLIGHT];
-        
-        NSData *jsonDataBus = [NSData dataWithContentsOfURL:blogURLBus];
-        NSData *jsonDataTrain = [NSData dataWithContentsOfURL:blogURLTrain];
-        NSData *jsonDataFlight = [NSData dataWithContentsOfURL:blogURLFlight];
-        
         NSError *error = nil;
+        
+        NSURL *blogURLBus = [NSURL URLWithString:JSON_URL_BUS];
+        NSData *jsonDataBus = [NSData dataWithContentsOfURL:blogURLBus];
         NSArray *dataDictionaryBus = [NSJSONSerialization JSONObjectWithData:jsonDataBus options:0 error:&error];
+        if (jsonDataBus)
+            [userDefaults setObject:dataDictionaryBus forKey:@"0"];
+         [userDefaults synchronize];
+        [self loadTheData];
+
+        
+        NSURL *blogURLTrain = [NSURL URLWithString:JSON_URL_TRAIN];
+        NSData *jsonDataTrain = [NSData dataWithContentsOfURL:blogURLTrain];
         NSArray *dataDictionaryTrain = [NSJSONSerialization JSONObjectWithData:jsonDataTrain options:0 error:&error];
+
+        
+        NSURL *blogURLFlight = [NSURL URLWithString:JSON_URL_FLIGHT];
+        NSData *jsonDataFlight = [NSData dataWithContentsOfURL:blogURLFlight];
         NSArray *dataDictionaryFlight = [NSJSONSerialization JSONObjectWithData:jsonDataFlight options:0 error:&error];
         
         
-        [userDefaults setObject:dataDictionaryBus forKey:@"0"];
-        [userDefaults setObject:dataDictionaryTrain forKey:@"1"];
-        [userDefaults setObject:dataDictionaryFlight forKey:@"2"];
         
-        
+        if (jsonDataFlight && jsonDataTrain && jsonDataBus)
+        {
+            [userDefaults setObject:dataDictionaryTrain forKey:@"1"];
+            [userDefaults setObject:dataDictionaryFlight forKey:@"2"];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"There is a problem in connection, you'll see the cache data!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
         
         [userDefaults synchronize];
+        [self loadTheData];
         dispatch_async(dispatch_get_main_queue(), ^{
         });
     });
@@ -254,15 +273,17 @@
     NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
     NSArray *arr = [array sortedArrayUsingDescriptors:descriptors];
     
-    for (NSDictionary *bpDictionary in arr)
-    {
-        GoEuroObject *currentTrip = [[GoEuroObject alloc]initWithId:[[bpDictionary objectForKey:@"id"]doubleValue]
-                                                               logo:[bpDictionary objectForKey:@"provider_logo"]
-                                                              price:[[bpDictionary objectForKey:@"price_in_euros"]doubleValue]
-                                                            depTime:[bpDictionary objectForKey:@"departure_time"]
-                                                             arTime:[bpDictionary objectForKey:@"arrival_time"]
-                                                            numStop:[[bpDictionary objectForKey:@"number_of_stops"]doubleValue]];
-        [self.objectHolderArray addObject:currentTrip];
+    if (arr) {
+        for (NSDictionary *bpDictionary in arr)
+        {
+            GoEuroObject *currentTrip = [[GoEuroObject alloc]initWithId:[[bpDictionary objectForKey:@"id"]doubleValue]
+                                                                   logo:[bpDictionary objectForKey:@"provider_logo"]
+                                                                  price:[[bpDictionary objectForKey:@"price_in_euros"]doubleValue]
+                                                                depTime:[bpDictionary objectForKey:@"departure_time"]
+                                                                 arTime:[bpDictionary objectForKey:@"arrival_time"]
+                                                                numStop:[[bpDictionary objectForKey:@"number_of_stops"]doubleValue]];
+            [self.objectHolderArray addObject:currentTrip];
+        }
     }
     [self.tableView reloadData];
 }
