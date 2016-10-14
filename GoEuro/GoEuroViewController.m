@@ -131,7 +131,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sortString = @"departure_time";
-    [self fetchTheData];
+    if (self.connected)
+        [self fetchTheData];
     [self loadTheData];
 }
 
