@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3724B97C1DB572B600F55F49 /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 3724B97B1DB572B600F55F49 /* UIImageViewAligned.m */; };
 		378F067E1DAD5CA600E3A248 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F067D1DAD5CA600E3A248 /* main.m */; };
 		378F06811DAD5CA600E3A248 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F06801DAD5CA600E3A248 /* AppDelegate.m */; };
 		378F06871DAD5CA600E3A248 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 378F06851DAD5CA600E3A248 /* Main.storyboard */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3724B97A1DB572B600F55F49 /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
+		3724B97B1DB572B600F55F49 /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
 		378F06791DAD5CA600E3A248 /* GoEuro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoEuro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		378F067D1DAD5CA600E3A248 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		378F067F1DAD5CA600E3A248 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 		378F067C1DAD5CA600E3A248 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3724B97A1DB572B600F55F49 /* UIImageViewAligned.h */,
+				3724B97B1DB572B600F55F49 /* UIImageViewAligned.m */,
 				37A6B9BB1DB00DD200E85A74 /* Reachability.h */,
 				37A6B9BC1DB00DD200E85A74 /* Reachability.m */,
 				378F067F1DAD5CA600E3A248 /* AppDelegate.h */,
@@ -249,6 +254,7 @@
 				37A6B9BD1DB00DD200E85A74 /* Reachability.m in Sources */,
 				378F06CD1DAD668700E3A248 /* GoEuroObject.m in Sources */,
 				378F067E1DAD5CA600E3A248 /* main.m in Sources */,
+				3724B97C1DB572B600F55F49 /* UIImageViewAligned.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

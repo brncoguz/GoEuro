@@ -9,6 +9,7 @@
 #import "GoEuroViewController.h"
 #import "GoEuroObject.h"
 #import "Reachability.h"
+#import "UIImageViewAligned.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 #define JSON_URL_TRAIN @"https://api.myjson.com/bins/3zmcy"
 #define JSON_URL_BUS @"https://api.myjson.com/bins/37yzm"
@@ -84,24 +85,14 @@
     
     GoEuroObject *currentTrip = [self.objectHolderArray objectAtIndex:indexPath.row];
     
-    [((UIImageView *)[cell viewWithTag:1000]) sd_setImageWithURL:[NSURL URLWithString:currentTrip.logo]];
-    [((UIImageView *)[cell viewWithTag:1000]) setContentMode:(UIViewContentModeScaleAspectFit)];
+    [((UIImageViewAligned *)[cell viewWithTag:1000]) sd_setImageWithURL:[NSURL URLWithString:currentTrip.logo]];
+    [((UIImageViewAligned *)[cell viewWithTag:1000]) setAlignLeft:true];
     
     [((UILabel *)[cell viewWithTag:1001]) setText:[NSString stringWithFormat:@"€ %.2f", [currentTrip.price floatValue]]];
     [((UILabel *)[cell viewWithTag:1002]) setText:[NSString stringWithFormat:@"%@ - %@",currentTrip.depTime, currentTrip.arTime]];
     [((UILabel *)[cell viewWithTag:1003]) setText:[NSString stringWithFormat:@"%@ %@", [self howManyStops:currentTrip.numStop],[self time:currentTrip.depTime Difference:currentTrip.arTime]]];
     
     return cell;
-}
-
--(UIImage*)resizeImage:(UIImage *)image imageSize:(CGSize)size
-{
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0,0,size.width,size.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    //here is the scaled image which has been changed to the size specified
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 - (NSString *)howManyStops:(NSNumber *)numStop
@@ -116,7 +107,6 @@
     
     return numberOfStops;
 }
-
 
 - (NSString *)time:(NSString *)depTime Difference:(NSString *)arTime
 {
@@ -143,7 +133,7 @@
 
 - (IBAction)buttonClicked:(id)sender {
     
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Action Sheet" message:@"Using the alert controller" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Sorting" message:@"How would you like to sort?" preferredStyle:UIAlertControllerStyleActionSheet];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
@@ -228,9 +218,8 @@
         [userDefaults setObject:self.dataDictionaryBus forKey:@"0"];
         [userDefaults synchronize];
         
-        [self loadTheData];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadTheData];
         });
     });
     
@@ -271,7 +260,6 @@
     
     [self loadTheData];
 }
-
 
 - (void)loadTheData
 {
