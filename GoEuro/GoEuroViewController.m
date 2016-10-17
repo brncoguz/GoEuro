@@ -7,7 +7,6 @@
 //
 
 #import "GoEuroViewController.h"
-#import "GoEuroCell.h"
 #import "GoEuroObject.h"
 #import "Reachability.h"
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -21,9 +20,34 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (nonatomic,strong) NSMutableArray *reports;
 @property (nonatomic,strong) NSString *sortString;
+@property (nonatomic, strong) NSArray *dataDictionaryTrain;
+@property (nonatomic, strong) NSArray *dataDictionaryBus;
+@property (nonatomic, strong) NSArray *dataDictionaryFlight;
 @end
 
 @implementation GoEuroViewController
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.sortString = @"departure_time";
+    if (self.connected)
+        [self fetchTheData];
+    else
+    {
+        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                           message:@"There is a problem in connection, you'll see the cache data!"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+        [alertView addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * _Nonnull action) {
+                                                    }]];
+        
+        [self presentViewController:alertView animated:YES completion:NULL];
+        
+        [self fetchTheDataOffline];
+    }
+}
 
 - (BOOL)connected
 {
@@ -42,8 +66,7 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
-(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.objectHolderArray count];
 }
@@ -56,26 +79,40 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
 (NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    GoEuroCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
+                                                            forIndexPath:indexPath];
+    
     GoEuroObject *currentTrip = [self.objectHolderArray objectAtIndex:indexPath.row];
-    cell.lblTime.text = [NSString stringWithFormat:@"%@ - %@",currentTrip.depTime, currentTrip.arTime];
-    cell.lblPrice.text = [NSString stringWithFormat:@"€ %0.2f", currentTrip.price];
-    cell.lblDuration.text = [NSString stringWithFormat:@"%@ %@", [self howManyStops:currentTrip.numStop],[self time:currentTrip.depTime Difference:currentTrip.arTime]];
-    cell.imgLogo.image = [self imageFromUrl:currentTrip.logo];
-
+    
+    [((UIImageView *)[cell viewWithTag:1000]) sd_setImageWithURL:[NSURL URLWithString:currentTrip.logo]];
+    [((UIImageView *)[cell viewWithTag:1000]) setContentMode:(UIViewContentModeScaleAspectFit)];
+    
+    [((UILabel *)[cell viewWithTag:1001]) setText:[NSString stringWithFormat:@"€ %.2f", [currentTrip.price floatValue]]];
+    [((UILabel *)[cell viewWithTag:1002]) setText:[NSString stringWithFormat:@"%@ - %@",currentTrip.depTime, currentTrip.arTime]];
+    [((UILabel *)[cell viewWithTag:1003]) setText:[NSString stringWithFormat:@"%@ %@", [self howManyStops:currentTrip.numStop],[self time:currentTrip.depTime Difference:currentTrip.arTime]]];
+    
     return cell;
 }
 
-- (NSString *)howManyStops:(int)numStop
+-(UIImage*)resizeImage:(UIImage *)image imageSize:(CGSize)size
+{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0,0,size.width,size.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    //here is the scaled image which has been changed to the size specified
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (NSString *)howManyStops:(NSNumber *)numStop
 {
     NSString *numberOfStops = nil;
-    if(numStop == 0)
+    if([numStop intValue] == 0)
         numberOfStops = @"Direct";
-    else if(numStop == 1)
-        numberOfStops = [NSString stringWithFormat:@"%d stop", numStop];
+    else if([numStop intValue] == 1)
+        numberOfStops = [NSString stringWithFormat:@"%@ stop", numStop];
     else
-        numberOfStops = [NSString stringWithFormat:@"%d stops", numStop];
+        numberOfStops = [NSString stringWithFormat:@"%@ stops", numStop];
     
     return numberOfStops;
 }
@@ -95,46 +132,6 @@
     timeDifference = [NSString stringWithFormat:@"%0.f:%0.fh", difference/60, fmodf(difference, 60)];
     
     return timeDifference;
-}
-
-- (UIImage *)imageFromUrl:(NSString *)urlString
-{
-    NSArray *companyLogo = [urlString componentsSeparatedByString:@"/"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *imageData = [defaults dataForKey:[NSString stringWithFormat:@"%@", [companyLogo lastObject]]];
-    if (imageData)
-    {
-        UIImage *contactImage = [UIImage imageWithData:imageData];
-        return contactImage;
-    }
-    
-    UIImage *image = nil;
-    urlString = [urlString stringByReplacingOccurrencesOfString:@"{size}"
-                                         withString:@"63"];
-
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", urlString]];
-    image = [UIImage imageWithCIImage:[CIImage imageWithContentsOfURL:url]];
-    
-    UIGraphicsBeginImageContext(image.size);
-    [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    imageData = UIImagePNGRepresentation(newImage);
-    [defaults setObject:imageData forKey:[NSString stringWithFormat:@"%@", [companyLogo lastObject]]];
-    
-    [defaults synchronize];
-    
-    return image;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.sortString = @"departure_time";
-    if (self.connected)
-        [self fetchTheData];
-    else
-        [self loadTheData];
 }
 
 - (IBAction)segmentSwitch
@@ -196,6 +193,10 @@
     }]];
     
     // Present action sheet.
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        actionSheet.popoverPresentationController.sourceView = self.view;
+        actionSheet.popoverPresentationController.sourceRect = self.view.frame;
+    }
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
@@ -203,53 +204,74 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    dispatch_queue_t fetchQ = dispatch_queue_create("goEuro fetcher", NULL);
-    dispatch_async(fetchQ, ^{
+    dispatch_queue_t fetchTrain = dispatch_queue_create("goEuroTrain fetcher", NULL);
+    dispatch_async(fetchTrain, ^{
         
         NSError *error = nil;
-        
-        NSURL *blogURLBus = [NSURL URLWithString:JSON_URL_BUS];
-        NSData *jsonDataBus = [NSData dataWithContentsOfURL:blogURLBus];
-        NSArray *dataDictionaryBus = [NSJSONSerialization JSONObjectWithData:jsonDataBus options:0 error:&error];
-        if (jsonDataBus)
-            [userDefaults setObject:dataDictionaryBus forKey:@"0"];
-         [userDefaults synchronize];
-        [self loadTheData];
-
-        
         NSURL *blogURLTrain = [NSURL URLWithString:JSON_URL_TRAIN];
         NSData *jsonDataTrain = [NSData dataWithContentsOfURL:blogURLTrain];
-        NSArray *dataDictionaryTrain = [NSJSONSerialization JSONObjectWithData:jsonDataTrain options:0 error:&error];
-
-        
-        NSURL *blogURLFlight = [NSURL URLWithString:JSON_URL_FLIGHT];
-        NSData *jsonDataFlight = [NSData dataWithContentsOfURL:blogURLFlight];
-        NSArray *dataDictionaryFlight = [NSJSONSerialization JSONObjectWithData:jsonDataFlight options:0 error:&error];
-        
-        
-        
-        if (jsonDataFlight && jsonDataTrain && jsonDataBus)
-        {
-            [userDefaults setObject:dataDictionaryTrain forKey:@"1"];
-            [userDefaults setObject:dataDictionaryFlight forKey:@"2"];
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"There is a problem in connection, you'll see the cache data!"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-        
+        self.dataDictionaryTrain = [NSJSONSerialization JSONObjectWithData:jsonDataTrain options:0 error:&error];
+        [userDefaults setObject:self.dataDictionaryTrain forKey:@"1"];
         [userDefaults synchronize];
-        [self loadTheData];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
         });
     });
     
+    dispatch_queue_t fetchBus = dispatch_queue_create("goEuroBus fetcher", NULL);
+    dispatch_async(fetchBus, ^{
+        
+        NSError *error = nil;
+        NSURL *blogURLBus = [NSURL URLWithString:JSON_URL_BUS];
+        NSData *jsonDataBus = [NSData dataWithContentsOfURL:blogURLBus];
+        self.dataDictionaryBus = [NSJSONSerialization JSONObjectWithData:jsonDataBus options:0 error:&error];
+        [userDefaults setObject:self.dataDictionaryBus forKey:@"0"];
+        [userDefaults synchronize];
+        
+        [self loadTheData];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        });
+    });
+    
+    dispatch_queue_t fetchFlight = dispatch_queue_create("goEuroFlight fetcher", NULL);
+    dispatch_async(fetchFlight, ^{
+        
+        NSError *error = nil;
+        NSURL *blogURLFlight = [NSURL URLWithString:JSON_URL_FLIGHT];
+        NSData *jsonDataFlight = [NSData dataWithContentsOfURL:blogURLFlight];
+        self.dataDictionaryFlight = [NSJSONSerialization JSONObjectWithData:jsonDataFlight options:0 error:&error];
+        [userDefaults setObject:self.dataDictionaryFlight forKey:@"2"];
+        [userDefaults synchronize];
+
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        });
+    });
+    
+//    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"Warning"
+//                                                                       message:@"There is a problem in connection, you'll see the cache data!"
+//                                                                preferredStyle:UIAlertControllerStyleAlert];
+//    [alertView addAction:[UIAlertAction actionWithTitle:@"OK"
+//                                                  style:UIAlertActionStyleDefault
+//                                                handler:^(UIAlertAction * _Nonnull action) {
+//                                                }]];
+//    
+//    [self presentViewController:alertView animated:YES completion:NULL];
+    
 }
+
+- (void)fetchTheDataOffline
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    self.dataDictionaryBus = [userDefaults objectForKey:@"0"];
+    self.dataDictionaryTrain = [userDefaults objectForKey:@"1"];
+    self.dataDictionaryFlight = [userDefaults objectForKey:@"2"];
+    
+    [self loadTheData];
+}
+
 
 - (void)loadTheData
 {
@@ -265,23 +287,31 @@
         lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number_of_stops.longValue" ascending:YES];
     else
         lastDescriptor = [[NSSortDescriptor alloc] initWithKey:@"departure_time" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *array = [userDefaults objectForKey:[NSString stringWithFormat:@"%ld", (long)self.segmentControl.selectedSegmentIndex]];
-    
-    NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
-    NSArray *arr = [array sortedArrayUsingDescriptors:descriptors];
-    
-    if (arr) {
-        for (NSDictionary *bpDictionary in arr)
-        {
-            GoEuroObject *currentTrip = [[GoEuroObject alloc]initWithId:[[bpDictionary objectForKey:@"id"]doubleValue]
-                                                                   logo:[bpDictionary objectForKey:@"provider_logo"]
-                                                                  price:[[bpDictionary objectForKey:@"price_in_euros"]doubleValue]
-                                                                depTime:[bpDictionary objectForKey:@"departure_time"]
-                                                                 arTime:[bpDictionary objectForKey:@"arrival_time"]
-                                                                numStop:[[bpDictionary objectForKey:@"number_of_stops"]doubleValue]];
+    if(self.segmentControl.selectedSegmentIndex == 0)
+    {
+        NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+        NSArray *arr = [self.dataDictionaryBus sortedArrayUsingDescriptors:descriptors];
+        for (int i = 0; i < arr.count; i++) {
+            GoEuroObject *currentTrip = [[GoEuroObject alloc] initWithDictionary:[arr objectAtIndex:i]];
+            [self.objectHolderArray addObject:currentTrip];
+        }
+    }
+    else if(self.segmentControl.selectedSegmentIndex == 1)
+    {
+        NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+        NSArray *arr = [self.dataDictionaryTrain sortedArrayUsingDescriptors:descriptors];
+        for (int i = 0; i < arr.count; i++) {
+            GoEuroObject *currentTrip = [[GoEuroObject alloc] initWithDictionary:[arr objectAtIndex:i]];
+            [self.objectHolderArray addObject:currentTrip];
+        }
+    }
+    else if(self.segmentControl.selectedSegmentIndex == 2)
+    {
+        NSArray *descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+        NSArray *arr = [self.dataDictionaryFlight sortedArrayUsingDescriptors:descriptors];
+        for (int i = 0; i < arr.count; i++) {
+            GoEuroObject *currentTrip = [[GoEuroObject alloc] initWithDictionary:[arr objectAtIndex:i]];
             [self.objectHolderArray addObject:currentTrip];
         }
     }

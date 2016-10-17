@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface GoEuroViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
-- (void)loadTheData;
 - (BOOL)connected;
 
 @end

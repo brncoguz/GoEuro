@@ -11,13 +11,13 @@
 
 @interface GoEuroObject : NSObject
 
--(instancetype)initWithId:(int)Id logo:(NSString *)provider_logo price:(double)price_in_euros depTime:(NSString *)departure_time arTime:(NSString *)arrival_time numStop:(int)number_of_stops;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-@property (nonatomic) int Id;
-@property (nonatomic,strong) NSString *logo;
-@property (nonatomic) double price;
-@property (nonatomic,strong) NSString *depTime;
-@property (nonatomic,strong) NSString *arTime;
-@property (nonatomic) int numStop;
+@property (nonatomic) NSNumber *Id;
+@property (nonatomic) NSString *logo;
+@property (nonatomic) NSNumber *price;
+@property (nonatomic) NSString *depTime;
+@property (nonatomic) NSString *arTime;
+@property (nonatomic) NSNumber *numStop;
 
 @end
