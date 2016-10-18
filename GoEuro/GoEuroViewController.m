@@ -120,7 +120,7 @@
     float difference = [date2 timeIntervalSinceDate:date1];
     difference /= 60;
     timeDifference = [NSString stringWithFormat:@"%0.f:%0.fh", difference/60, fmodf(difference, 60)];
-    
+    //yorum
     return timeDifference;
 }
 
